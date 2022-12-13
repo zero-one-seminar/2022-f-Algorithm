@@ -2,7 +2,7 @@
 marp: true
 math: katex
 header: "第4回 出力層の設計"
-footer: "2022/11/17 ゼロイチゼミ <a href=\"https://twitter.com/nu_zero_one\" style=\"color:white\">@nu_zero_one</a>"
+footer: "2022/12/13 ゼロイチゼミ <a href=\"https://twitter.com/nu_zero_one\" style=\"color:white\">@nu_zero_one</a>"
 theme: 01semi
 paginate: true
 ---
