@@ -1,7 +1,7 @@
 ---
 marp: true
 header: "計算量を学ぼう！"
-footer: "2022/12/20 ゼロイチゼミ <a href=\"https://twitter.com/nu_zero_one\" style=\"color:white\">@nu_zero_one</a>"
+footer: "2022/12/20 <a href=\"https://twitter.com/nu_zero_one\" style=\"color:white\">@nu_zero_one</a>"
 theme: 01semi
 paginate: true
 ---
@@ -9,6 +9,9 @@ paginate: true
 <style>
   .title-font {
     color: #455a64;
+  }
+  .red {
+    color: #ff0000;
   }
 </style>
 
@@ -32,7 +35,7 @@ _paginate: false
 <hr>
 
 **「データの大きさ」や「実行する環境」に依存しない評価方法が必要**
-<div style="color:red; font-size:50px">→計算量の出番</div>
+<span style="font-size:50px" class="red">→計算量の出番</span>
 
 # オーダー記法 (1/2)
 
@@ -52,7 +55,7 @@ _paginate: false
 
 - 計算量は基本的にオーダー記法で書く
   1. 一番大きい項のみ残して表記する
-    $n! > a^n > n^a > \log n > a$　（$a$ は定数）
+    $c < \log n < n^c < c^n < n!$ （$c$ は定数）
   2. 定数倍は無視する
 
 オーダー記法の例）
@@ -106,16 +109,22 @@ print(ans)
 
 # 計算量の使い方
 - 一般的なコンピュータが1秒間に計算できる回数は**約 $\mathbf{10^8}$ 回**
-- $n$ の大きさと実際の値は次の表のようになります
+- 競プロの実行時間制限は大体 $1\!\sim\! 3$ 秒
+- 各計算量ごとの、制限時間に間に合う $N$
+$$
+\scriptsize
+\begin{array}{ll}
+  O(N) &: N \leqslant 10^7\\
+  O(N\log N) &: N \leqslant 10^6\\
+  O(N^2) &: N \leqslant 10^4\\
+  O(N^3) &: N \leqslant 300\\
+\end{array}
+$$
 
-<hr>
-
-#### 参考
-- 計算量オーダーの求め方を総整理！〜どこからlogが出て来るか〜
-  https://qiita.com/drken/items/872ebc3a2b5caaa4a0d0#1-3-%E8%A8%88%E7%AE%97%E9%87%8F%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+↓ $n$ の大きさと実際の値は次ページの表のようになります
 
 
-#
+---
 $$
 \scriptsize
 \begin{array}{lllllll}
@@ -132,9 +141,20 @@ $$
   10 & \mathbf{1000} & 9966 & 1000000 & - & - & -\\
   13 & \mathbf{10000} & 132877 & 100000000 & - & - & -\\
   16 & \mathbf{100000} & 1660964 & - & - & - & -\\
+  20 & \mathbf{1000000} & 19931568 & - & - & - & -\\
   \hline
 \end{array}
 $$
+
+<div style="font-size:20px; text-align:center;">
+
+参考：https://qiita.com/drken/items/872ebc3a2b5caaa4a0d0#1-3-%E8%A8%88%E7%AE%97%E9%87%8F%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9
+</div>
+
+<!--
+_header: ""
+_footer: ""
+-->
 
 
 # 計算量を落とすテクニック
@@ -149,17 +169,33 @@ $$
   条件を満たす値があるかを高速に調べるアルゴリズム
 
 
-# <a name="formula" class="title-font">公式を使う (1/3)</a>
+# <a name="formula" class="title-font">公式を使う (1/4)</a>
+
+先ほどの $1\!\sim\! n$ までの数の和を求めるプログラムを高速化してみよう
+
+```python
+# 1~n までの数の和を求める
+n = int(input())
+
+ans = 0
+for i in range(1, n+1):
+    ans += i
+
+print(ans)
+```
+
+
+# 公式を使う (2/4)
 
 このコードは、$1\!\sim\!n$ の和を求めるために $O(n)$ の計算をしています
-（$n = 100,000,000$ で2.6秒くらい必要）
+（$n = 100,000,000$ で2.6秒くらい必要）<span class="red">→間に合わない</span>
 
 ![](images/time_n.png)
 
 
-# 公式を使う (2/3)
+# 公式を使う (3/4)
 
-この公式を使えば、、
+等差数列の和の公式を使えば…
 
 $$
 \sum_{i=1}^{n} = \frac{1}{2} n(n+1)
@@ -174,13 +210,14 @@ print(ans)
 ```
 
 
-# 公式を使う (3/3)
+# 公式を使う (4/4)
 
 ![](images/time_1.png)
 
 なんと、53.7**ナノ**秒で終了！！
 
 → 約**5億倍**の高速化（ちょっと極端な例ではあるけど）
+→ もちろん余裕で間に合う
 
 
 # <a name="acc" class="title-font">累積和 (/n)</a>
@@ -205,14 +242,15 @@ $2$ 日目から $5$ 日目までの売り上げの合計はいくらでしょ�
 
 # 累積和 (/n)
 
-一般化してみると？？
+あるたい焼き屋さんでは、$N$ 日間毎日売り上げを記録しています。
+営業開始から $i$ 日目の売り上げは $A_i$ 円でした。
+このとき、以下の $Q$ 個のクエリ（質問）に答えて下さい。
+$a$ 日目から $b$ 日目までの売り上げの合計はいくらでしょうか？
 <hr>
 
-あるたい焼き屋さんでは、毎日売り上げを記録しています。
-営業開始から $i$ 日目の売り上げは $A_i$ 円でした。
-このとき、以下の問題に答えて下さい。
-$i$ 日目から $j$ 日目までの売り上げの合計はいくらでしょうか？
-<hr>
+- $1\leqslant a\leqslant b\leqslant N\leqslant 10^5$
+- $0\leqslant A_i\leqslant 10^9$
+- $1\leqslant Q\leqslant 10^5$
 
 
 # 累積和 (/n)
