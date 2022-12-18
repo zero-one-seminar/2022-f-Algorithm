@@ -188,7 +188,7 @@ print(ans)
 # 公式を使う (2/4)
 
 このコードは、$1\!\sim\!n$ の和を求めるために $O(n)$ の計算をしています
-（$n = 100,000,000$ で2.6秒くらい必要）<span class="red">→間に合わない</span>
+（$n = 100,000,000$ で2.6秒くらい必要）<span class="red">→間に合わない！</span>
 
 ![](images/time_n.png)
 
@@ -229,7 +229,7 @@ $$
 \scriptsize
 \begin{array}{|c|c|c|c|c|c|}
   \hline
-  1日\!目 & \colorbox{violet}{2日\!目} & \colorbox{violet}{3日\!目} & \colorbox{violet}{4日\!目} & \colorbox{violet}{5日\!目} & 6日\!目 & 7日\!目\\
+  1日\!目 & \colorbox{yellowgreen}{2日\!目} & \colorbox{yellowgreen}{3日\!目} & \colorbox{yellowgreen}{4日\!目} & \colorbox{yellowgreen}{5日\!目} & 6日\!目 & 7日\!目\\
   \hline
   20 & 50 & 30 & 10 & 30 & 0 & 40\\
   \hline
@@ -241,6 +241,8 @@ $2$ 日目から $5$ 日目までの売り上げの合計はいくらでしょ�
 → $50+30+10+30=120$（個）
 
 # 累積和 (/n)
+
+<hr>
 
 あるたい焼き屋さんでは、$N$ 日間毎日売り上げを記録しています。
 営業開始から $i$ 日目の売り上げは $A_i$ 円でした。
@@ -255,16 +257,61 @@ $a$ 日目から $b$ 日目までの売り上げの合計はいくらでしょ�
 
 # 累積和 (/n)
 
+各項を毎回足していくと、毎回のクエリで $\small A_a + A_{a+1} + \cdots + A_b$ という足し算をすることになる。→最大で $O(N)$ 回
+よって、 $Q$ 個のクエリを処理すると、計算量は $O(NQ)$ ！！
+<span class="red">→間に合わない！</span>
+
 $$
 \begin{array}{|c|c|c|c|c|c|}
   \hline
-  A_1 & A_2 & A_3 & A_4 & A_5 & A_6 & A_7\\
+  A_1 & \colorbox{yellowgreen}{$A_2$} & \colorbox{yellowgreen}{$A_3$} & \colorbox{yellowgreen}{$A_4$} & \colorbox{yellowgreen}{$A_5$} & A_6 & A_7\\
   \hline
   20 & 50 & 30 & 10 & 30 & 0 & 40\\
   \hline
 \end{array}
 $$
 
+
+# 累積和 (/n)
+
+そこで、$\small S_k = \sum_{i=0}^{k} A_i$ を満たす $S_i$ を考える。（**累積和**）
+このとき、$S_b - S_{a-1}$ が求める区間の和になる。
+
+<hr>
+証明）
+
+$$
+\small
+\begin{align}
+      & S_b     &= &A_1 + A_2 + \cdots + A_{a-1} + \colorbox{yellowgreen}{$A_a + \cdots + A_b$}\\
+  -)~ & S_{a-1} &= &A_1 + A_2 + \cdots + A_{a-1}\\
+  \hline
+      & S_b - S_{a-1} &= &\colorbox{yellowgreen}{$A_a + \cdots + A_b$}
+\end{align}
+$$
+
+
+# 累積和 (/n)
+
+つまり？？
+$$
+\colorbox{yellowgreen}{50} + \colorbox{yellowgreen}{30} + \colorbox{yellowgreen}{10} + \colorbox{yellowgreen}{30} 
+= \colorbox{violet}{140} - \colorbox{skyblue}{20}
+= 120
+$$
+
+$$
+\small
+\begin{array}{|c|c|c|c|c|c|c|}
+  \hline
+  i & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7\\
+  \hline
+  A_i & - & 20 & \colorbox{yellowgreen}{50} & \colorbox{yellowgreen}{30} & \colorbox{yellowgreen}{10} & \colorbox{yellowgreen}{30} & 0 & 40\\
+  \hline
+  S_i & 0 & \colorbox{skyblue}{20} & 70 & 100 & 110 & \colorbox{violet}{140} & 140 & 180\\
+  \hline
+\end{array}
+$$
 
 # <a name="binarysearch" class="title-font">二分探索</a>
 
