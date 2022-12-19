@@ -162,17 +162,15 @@ _footer: ""
 
 ## 計算量を落とすテクニック
 
-今回は代表的なものを3つ紹介します。
+今回は代表的なものを2つ紹介します。
 
-- <a href="#formula">**公式を使う**</a>
-  比較的単純な手法
+- <a href="#formula">**式変形**</a>
+  比較的単純だけど、強力な手法
 - <a href="#acc">**累積和**</a>
   数列の区間の和を高速に求めるアルゴリズム
-- <a href="#binarysearch">**二分探索**</a>
-  条件を満たす値があるかを高速に調べるアルゴリズム
 
 
-## <a name="formula" class="title-font">公式を使う</a>
+## <a name="formula" class="title-font">式変形</a>
 
 先ほどの $1\!\sim\! n$ までの数の和を求めるプログラムを高速化してみよう
 
@@ -188,7 +186,7 @@ print(ans)
 ```
 
 
-## 公式を使う
+## 式変形
 
 このコードは、$1\!\sim\!n$ の和を求めるために $O(n)$ の計算をしています
 （$n = 100,000,000$ で2.6秒くらい必要）<span class="red">→間に合わない！</span>
@@ -196,7 +194,7 @@ print(ans)
 ![](images/time_n.png)
 
 
-## 公式を使う
+## 式変形
 
 等差数列の和の公式を使えば…
 
@@ -213,7 +211,7 @@ print(ans)
 ```
 
 
-## 公式を使う
+## 式変形
 
 ![](images/time_1.png)
 
@@ -221,6 +219,14 @@ print(ans)
 
 → 約**5億倍**の高速化（ちょっと極端な例ではあるけど）
 → もちろん余裕で間に合う
+
+
+## 演習問題（式変形）
+
+- Q4. 積の総和 (1)（アルゴ式）
+  https://algo-method.com/tasks/1019
+- ARC107 A - Simple Math（AtCoder）
+  https://atcoder.jp/contests/arc107/tasks/arc107_a
 
 
 ## <a name="acc" class="title-font">累積和</a>
@@ -361,9 +367,16 @@ $$
 よって $N=10^5, Q=10^5$ 程度なら、余裕で間に合います。
 
 
-## <a name="binarysearch" class="title-font">二分探索</a>
+## 演習問題（累積和）
+
+- Q3. 駅と駅の距離（アルゴ式）
+  https://algo-method.com/tasks/1027
+- ABC037 C - 総和（AtCoder）
+  https://atcoder.jp/contests/abc037/tasks/abc037_c
 
 
 ## 参考
 - 計算量オーダーの求め方を総整理！ 〜どこからlogが出て来るか〜
   https://qiita.com/drken/items/872ebc3a2b5caaa4a0d0
+- 累積和を何も考えずに書けるようにする！
+  https://qiita.com/drken/items/56a6b68edef8fc605821
