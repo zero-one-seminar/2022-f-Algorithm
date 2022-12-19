@@ -59,12 +59,14 @@ _paginate: false
   2. 定数倍は無視する
 
 オーダー記法の例）
+
 $$
 \begin{align*}
   5n^3+4n^2+100n &\longrightarrow O(n^3)\\
   2^n+n^{100}+10^9n &\longrightarrow O(2^n)\\
 \end{align*}
 $$
+
 
 ## コードの計算量の調べ方
 
@@ -111,6 +113,7 @@ print(ans)
 - 一般的なコンピュータが1秒間に計算できる回数は**約 $\mathbf{10^8}$ 回**
 - 競プロの実行時間制限は大体 $1\!\sim\! 3$ 秒
 - 各計算量ごとの、制限時間に間に合う $N$
+
 $$
 \scriptsize
 \begin{array}{ll}
@@ -294,6 +297,7 @@ $$
 ## 累積和
 
 つまり？？
+
 $$
 \colorbox{yellowgreen}{50} + \colorbox{yellowgreen}{30} + \colorbox{yellowgreen}{10} + \colorbox{yellowgreen}{30} 
 = \colorbox{violet}{140} - \colorbox{skyblue}{20}
