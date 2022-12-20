@@ -22,7 +22,7 @@ _paginate: false
 -->
 # 計算量を学ぼう！
 
-<a style="color:white; text-decoration: none;" href="https://github.com/kentakom1213">ぱうえる（けんた）</a>
+<a style="color:white; text-decoration: none;" href="https://github.com/kentakom1213">ぱうえる（けんた）:link:</a>
 
 ## 速いコードが書きたい！
 
